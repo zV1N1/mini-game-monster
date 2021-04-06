@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Monster-Battle</title>
+</head>
+<body>
+    <header>
+        <h1>Monster Slayer</h1>
+    </header>
+    <div id="game" class="">
+        <section id="monster" class="container">
+            <h2>Monster Health</h2>
+            <div class="healthbar">
+                <div class="healthbar_value"
+                :style="updateMonsterBar">
+                </div>
+            </div>
+        </section>
+        <section id="player" class="container">
+            <h2>Your Health</h2>
+            <div class="healthbar">
+                <div class="healthbar_value"
+                :style="updatePlayerBar">
+                </div>
+            </div>
+        </section>
+        <section  id="controls" v-if="!winner">
+            <button @click="playerAttack">ATTACK</button>
+            <button @click="specialAttack" :disabled="availableSpecial">SPECIAL ATTACK</button>
+            <button @click="healPlayer">HEAL</button>
+            <button @click="surrender">SURRENDER</button>
+        </section>
+        <section id="gameOver" class="container" v-else>
+            <h2>Game Over!</h2>
+            <h2>{{ battleResult }}</h2>
+            <button @click="newGame">Start New Game</button>
+        </section>
+        <section id="log" class="container"> 
+            <h2>Battle Log</h2>
+            <ul>
+                <li v-for="( log, index ) in logMessages" :keys="index">
+                    <span :style="styleAction(log.actionBy)">{{ log.actionBy }}</span> 
+                    {{ log.actionType }}
+                    <span :style="styleValue(log.actionType)" >{{ log.actionValue }}</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@next"></script>
+<script src="app.js"></script>
+</html>
